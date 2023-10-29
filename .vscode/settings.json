@@ -65,6 +65,8 @@
         "deque": "cpp",
         "regex": "cpp",
         "numeric": "cpp",
-        "random": "cpp"
-    }
+        "random": "cpp",
+        "charconv": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "enabled"
 }

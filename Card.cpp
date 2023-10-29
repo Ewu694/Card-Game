@@ -5,55 +5,70 @@ Card::~Card()
     delete[] bitmap_;
 }
 
-Card::Card(const &Card rhs)
+Card::Card(const Card& rhs)
 {
-    cardType_ = rhs
+    cardType_ = rhs.cardType_;
+    bitmap_ = rhs.bitmap_;
+    instruction_ = rhs.instruction_;
+    drawn_ = rhs.drawn_;
+}
+
+Card& operator=(const Card& rhs)
+{
+    
 }
 
 Card::Card()
 {
-    CardType cardType_ ;
+    CardType cardType_;
     std::string instruction_ = "";
     int* bitmap_ = 0;
     bool drawn_ = false;
 }
 
-std::string getType() const
+const char* cardTypes[] = {"POINT_CARD", "ACTION_CARD"};
+
+std::string Card::enumToString(const CardType& card)
 {
-    return 
+    return cardTypes[card];
 }
 
-void setType(const CardType& type)
+std::string Card::getType() const
 {
+    return enumToString(cardType_);
+}   
 
+void Card::setType(const CardType& type)
+{
+    cardType_ = type;
 }
 
-const std::string& getInstruction() const
+const std::string& Card::getInstruction() const
 {
-
+    return instruction_;
 }
 
-void setInstruction(const std::string& instruction)
+void Card::setInstruction(const std::string& instruction)
 {
-
+    instruction_ = instruction;
 }
 
-const int* getImageData() const
+const int* Card::getImageData() const
 {
-
+    return bitmap_;
 }
 
-void setImageData(int* data)
+void Card::setImageData(int* data)
 {
-
+    bitmap_ = data;
 }
 
-bool getDrawn() const
+bool Card::getDrawn() const
 {
-
+    return drawn_;
 }
 
-void setDrawn(const bool& drawn)
+void Card::setDrawn(const bool& drawn)
 {
-
+    drawn_ = drawn;
 }
