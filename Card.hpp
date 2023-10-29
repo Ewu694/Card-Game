@@ -101,7 +101,7 @@ class Card
         virtual void Print() const = 0;
         virtual bool isPlayable() = 0;
 
-    private:
+    protected:
         CardType cardType_;
         std::string instruction_;
         int* bitmap_;
