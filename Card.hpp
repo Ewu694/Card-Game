@@ -1,8 +1,8 @@
 /*
 CSCI335 Fall 2023
 Assignment 1 – Card Game
-Name
-Date
+Eric
+10/28/2003
 Card.hpp defines the Card class and its member functions.
 */
 
@@ -105,7 +105,6 @@ class Card
         CardType cardType_;
         std::string instruction_;
         int* bitmap_;
-        bool drawn_;
+        bool drawn_; 
 };
-
 #endif

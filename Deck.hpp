@@ -25,7 +25,7 @@ class Deck
         Deck();
 
         /**
-         * @post: Destroy the Deck object 
+             * @post: Destroy the Deck object 
          */
         ~Deck();
 
@@ -70,5 +70,5 @@ class Deck
         std::vector<CardType> cards_;
 };
 
-#include "Deck.cpp"
+//#include "Deck.cpp"
 #endif

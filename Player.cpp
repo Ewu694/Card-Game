@@ -1,66 +1,70 @@
 #include "Player.hpp"
 
-const Hand& getHand() const
+Player::Player() : hand_(), score_(0), opponent_(nullptr), actiondeck_(nullptr), pointdeck_(nullptr) {}
+
+Player::~Player() {}
+
+const Hand& Player::getHand() const
+{
+    return hand_;
+}
+
+void Player::setHand(const Hand& hand)
+{
+    hand_ = hand;
+}
+
+int Player::getScore() const
+{
+    return score_;
+}
+
+void Player::setScore(const int& score)
+{
+    score_ = score;
+}
+
+void Player::play(ActionCard&& card)
 {
 
 }
 
-void setHand(const Hand& hand)
+void Player::drawPointCard()
 {
 
 }
 
-int getScore() const
+void Player::playPointCard()
 {
 
 }
 
-void setScore(const int& score)
+void Player::setOpponent(Player* opponent)
 {
-
+    opponent_ = opponent;
 }
 
-void play(ActionCard&& card)
+Player* Player::getOpponent()
 {
-
+    return opponent_;
 }
 
-void drawPointCard()
+void Player::setActionDeck(Deck<ActionCard>* actiondeck)
 {
-
+    actiondeck_ = actiondeck;
 }
 
-void playPointCard()
+Deck<ActionCard>* Player::getActionDeck()
 {
-
+    return actiondeck_;
 }
 
-void setOpponent(Player* opponent)
+void Player::setPointDeck(Deck<PointCard>* pointdeck)
 {
-
+    pointdeck_ = pointdeck;
 }
 
-Player* getOpponent()
+Deck<PointCard>* Player::getPointDeck()
 {
-
-}
-
-void setActionDeck(Deck<ActionCard>* actiondeck)
-{
-
-}
-
-Deck<ActionCard>* getActionDeck()
-{
-    
-}
-
-void setPointDeck(Deck<PointCard>* pointdeck)
-{
-
-}
-
-Deck<PointCard>* getPointDeck()
-{
-    
+    return pointdeck_;
 }

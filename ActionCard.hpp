@@ -1,8 +1,8 @@
 /*
 CSCI335 Fall 2023
 Assignment 1 – Card Game
-Name
-Date
+Eric
+10/28/2023
 ActionCard.hpp defines the ActionCard class and inherits from the Card Class.
 */
 #ifndef ACTIONCARD_HPP
@@ -12,6 +12,8 @@ ActionCard.hpp defines the ActionCard class and inherits from the Card Class.
 #include <string>
 #include <cctype>
 #include <regex>
+#include <vector>
+#include <sstream>
 #include "Card.hpp"
 
 class ActionCard : public Card

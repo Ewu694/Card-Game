@@ -66,7 +66,9 @@
         "regex": "cpp",
         "numeric": "cpp",
         "random": "cpp",
-        "charconv": "cpp"
+        "charconv": "cpp",
+        "__tree": "cpp",
+        "map": "cpp"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }
