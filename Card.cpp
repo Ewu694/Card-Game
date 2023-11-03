@@ -20,7 +20,7 @@ Card::Card(const Card& rhs)//copy constructor
 }
 
 Card& Card::operator=(const Card& rhs)//copy assignment operator
-{
+{   
     if (this == &rhs) {
         return *this; // Self-assignment, no need to do anything
     }
@@ -75,10 +75,10 @@ std::string Card::getType() const
     switch ((cardType_))
     {
     case POINT_CARD:
-        return "Point Card";
+        return "POINT_CARD";
         break;
     case ACTION_CARD:
-        return "Action Card";
+        return "ACTION_CARD";
         break;
     default:
         break;

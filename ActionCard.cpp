@@ -33,10 +33,12 @@ void ActionCard::Print() const
     std::cout << "Type: " << getType() << std::endl;
     std::cout << "Instruction: " << getInstruction() << std::endl;
     const int* imageData = getImageData();
-    if(bitmap_ == nullptr){
+    if(bitmap_ == nullptr)
+    {
         std::cout << "Card: " << imageData << std::endl;
         std::cout << "No image data";
-    }else
+    }
+    else
     {
         std::cout << "Card: " << imageData << std::endl;
         for(int i = 0; i < 80; ++i)
