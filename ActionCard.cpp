@@ -2,38 +2,45 @@
 
 ActionCard::ActionCard()
 {
-    ActionCard action_card;
+    setDrawn(false);
+    setImageData(nullptr);
+    setType(ACTION_CARD);
+    setInstruction("");
 }
 
 bool ActionCard::isPlayable()
 {   
-    char delimiter = ' ';//split instructions by spaces
-    std::vector<std::string> tokens;//used to store each word after it is split and later used to make it so if the first word is DRAW or PLAY keep it playable without checking for how many cards needs to be drawn
-    std::stringstream ss(instruction_);//used to read each instruction to split accordingly
-    std::string token;//each word being split
-    while(std::getline(ss, token, delimiter))//after splitting, push each singular word into tokens
-    {
-        tokens.push_back(token);
-    } 
+    std::regex drawRegex("^DRAW [0-9] CARD\\(S\\)");
+    std::regex playRegex("PLAY [0-9] CARD\\(S\\)");
 
-    if(drawn_ && (instruction_ == "REVERSE HAND" || instruction_ == "SWAP HAND WITH OPPONENT" || tokens[0] == "DRAW" || tokens[0] == "PLAY"))
-    {
-        return true;
-    }
+    if(std::regex_match(getInstruction(), drawRegex) || std::regex_match(getInstruction(), playRegex) || getInstruction() == "REVERSE HAND" || getInstruction() == "SWAP HAND WITH OPPONENT")
+        return true;  
     return false;
 }
 
+
+/**
+ * @post: Print the ActionCard in the following format:
+ * Type: [CardType]
+ * Instruction: [Instruction]
+ * Card: 
+ * [ImageData]
+ * 
+ * Note: For [ImageData]: If there is no image data, print "No image data" instead
+ */
 void ActionCard::Print() const
 {
     std::cout << "Type: " << getType() << std::endl;
     std::cout << "Instruction: " << getInstruction() << std::endl;
-    if(bitmap_ == nullptr)
-        std::cout << "No Image Data Found";
-    else
+    const int* imageData = getImageData();
+    if(bitmap_ == nullptr){
+        std::cout << "Card: " << imageData << std::endl;
+        std::cout << "No image data";
+    }else
     {
-        std::cout << "Card: " << getImageData() << std::endl;
+        std::cout << "Card: " << imageData << std::endl;
         for(int i = 0; i < 80; ++i)
-            std::cout << getImageData()[i] << " ";
+            std::cout << imageData[i] << " " << std::endl;
     }
 }
 

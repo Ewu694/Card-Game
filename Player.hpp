@@ -100,7 +100,6 @@ class Player
         Player* opponent_; // A pointer to another player opponent
         Deck<ActionCard> * actiondeck_; // A pointer to a deck
         Deck<PointCard> * pointdeck_; // A pointer to a deck
-
 };
 
 #endif

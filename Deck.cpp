@@ -24,9 +24,9 @@ void Deck<CardType>::AddCard(const CardType& card)
 template <typename CardType>
 CardType&& Deck<CardType>::Draw()
 {
-    CardType && card = std::move(cards_.back());
     if(IsEmpty() == false)
     {
+        CardType && card = std::move(cards_.back());
         cards_.pop_back();
         return std::move(card);
     }
