@@ -22,11 +22,11 @@ void PointCard::Print() const
     if(bitmap_ == nullptr)
     {
     std::cout << "Card: " << std::endl;
-    std::cout << "No image data";
+    std::cout << "No image data" << std::endl;
     }
     else
     {
         std::cout << "Card: " << std::endl;
-        std::cout << getInstruction() << std::endl;
+        std::cout << getImageData() << std::endl;
     }
 }
