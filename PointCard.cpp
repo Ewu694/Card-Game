@@ -28,7 +28,6 @@ void PointCard::Print() const
     else
     {
         std::cout << "Card: " << imageData << std::endl;
-        for(int i = 0; i < 80; ++i)
-            std::cout << imageData[i] << " " << std::endl;
+        std::cout << getInstruction() << std::endl;
     }
 }
