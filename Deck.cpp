@@ -7,6 +7,7 @@ Deck<CardType>::Deck() : cards() {}
 template <typename CardType>
 Deck<CardType>::~Deck()
 {
+    this->cards_.clear();
 }
 
 template <typename CardType>
@@ -15,22 +16,26 @@ void Deck<CardType>::AddCard(const CardType& card)
     cards_.push_back(card);
 }
 
+/**
+ * @post: Draw a card from the deck
+ * @pre: the deck is not empty
+ * @return the right hand value of type CardType 
+ */
 template <typename CardType>
 CardType&& Deck<CardType>::Draw()
 {
-    if(IsEmpty == false)
+    CardType && card = std::move(cards_.back());
+    if(IsEmpty() == false)
     {
-        return cards_.back().card_Type;
         cards_.pop_back();
+        return std::move(card);
     }
 }
 
 template <typename CardType>
 bool Deck<CardType>::IsEmpty() const
 {
-    if(cards_.size == 0)
-        return true;
-    return false;
+    return cards_.empty();
 }
 
 template <typename CardType>

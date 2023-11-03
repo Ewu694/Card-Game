@@ -33,7 +33,7 @@ void ActionCard::Print() const
     {
         std::cout << "Card: " << getImageData() << std::endl;
         for(int i = 0; i < 80; ++i)
-            std::cout << bitmap_[i];
+            std::cout << getImageData()[i] << " ";
     }
 }
 
