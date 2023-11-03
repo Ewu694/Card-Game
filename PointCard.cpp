@@ -19,15 +19,14 @@ void PointCard::Print() const
 {
     std::cout << "Type: " << getType() << std::endl;
     std::cout << "Instruction: " << getInstruction() << std::endl;
-    const int* imageData = getImageData();
     if(bitmap_ == nullptr)
     {
-    std::cout << "Card: " << imageData << std::endl;
+    std::cout << "Card: " << std::endl;
     std::cout << "No image data";
     }
     else
     {
-        std::cout << "Card: " << imageData << std::endl;
+        std::cout << "Card: " << std::endl;
         std::cout << getInstruction() << std::endl;
     }
 }
