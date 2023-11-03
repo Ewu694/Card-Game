@@ -10,6 +10,10 @@ PointCard.hpp defines the PointCard class and inherits from the Card Class.
 
 #include <iostream>
 #include <string>
+#include <cctype>
+#include <regex>
+#include <vector>
+#include <sstream>
 #include "Card.hpp"
 
 class PointCard : public Card

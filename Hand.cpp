@@ -52,5 +52,5 @@ bool Hand::isEmpty() const
 
 void Hand::Reverse()
 {
-    
+    std::reverse(cards_.begin(), cards_.end());
 }
