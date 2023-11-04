@@ -2,12 +2,14 @@
 
 
 template <typename CardType>
-Deck<CardType>::Deck() : cards() {}
+Deck<CardType>::Deck()
+{
+    this->cards_.clear();
+}
 
 template <typename CardType>
 Deck<CardType>::~Deck()
 {
-    this->cards_.clear();
 }
 
 template <typename CardType>

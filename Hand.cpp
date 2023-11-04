@@ -54,3 +54,8 @@ void Hand::Reverse()
 {
     std::reverse(cards_.begin(), cards_.end());
 }
+
+int Hand::PlayCard()
+{
+
+}

@@ -26,17 +26,49 @@ void Player::setScore(const int& score)
 
 void Player::play(ActionCard&& card)
 {
+    if(!card.isPlayable())
+        return;
 
+    std::string instruction = card.getInstruction();
+    std::regex playInstruction("PLAY (\\d+) CARD(\\(S\\))?");
+    std::regex drawInstruction("DRAW (\\d+) CARD(\\(S\\))?");
+    std::smatch match;
+    if(std::regex_match(instruction, match, playInstruction))
+    {
+        int num = std::stoi(match[1].str());
+        for(int i = 0; i < num; ++i)
+        {
+            playPointCard();   
+        }
+    }
+    else if(std::regex_match(instruction, match, drawInstruction))
+    {
+        int num = std::stoi(match[1].str());
+        for(int i = 0; i < num; ++i)
+        {
+            hand_.addCard(pointdeck_ -> Draw());    
+        }
+    }
+    else if(instruction == "SWAP HAND WITH OPPONENT")
+    {
+        Hand temp = getHand();
+        setHand(opponent_ -> getHand());
+        opponent_ -> setHand(temp);
+    }
+    else if(instruction == "REVERSE HAND")
+    {
+        hand_.Reverse();
+    }
 }
 
 void Player::drawPointCard()
 {
-
+    pointdeck_ -> Draw();
 }
 
 void Player::playPointCard()
 {
-
+    
 }
 
 void Player::setOpponent(Player* opponent)
