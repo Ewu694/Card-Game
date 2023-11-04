@@ -20,7 +20,7 @@ void PointCard::Print() const
     std::cout << "Type: " << getType() << std::endl;
     std::cout << "Instruction: " << getInstruction() << std::endl;
     std::cout << "Card: " << std::endl;
-    if(getImageData() == nullptr)
+    if(getImageData() != nullptr)
     {
         for(int i = 0; i < 80; ++i)
         {
