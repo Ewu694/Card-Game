@@ -1,9 +1,11 @@
 #include "Card.hpp"
 
-Card::~Card()//destructor
+Card::~Card() // Destructor
 {
-    delete[] bitmap_;
+    delete[] bitmap_; // Deallocate bitmap_ because bitmap is a pointer.
+    bitmap_ = nullptr; // Point bitmap_ to nullptr since it's not needed anymore upon destruction.
 }
+
 Card::Card(const Card& rhs) // Copy Constructor
 {
     cardType_ = rhs.cardType_;
@@ -76,7 +78,6 @@ Card& Card::operator=(Card&& rhs)
     }
     return *this;
 }
-
 Card::Card()
 {
     CardType cardType_;
