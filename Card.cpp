@@ -1,29 +1,23 @@
 #include "Card.hpp"
 
-Card::~Card() // Destructor
+Card::~Card()//destructor
 {
-    delete[] bitmap_; // Deallocate bitmap_ because bitmap is a pointer.
-    bitmap_ = nullptr; // Point bitmap_ to nullptr since it's not needed anymore upon destruction.
+    delete[] bitmap_;
 }
 
-Card::Card(const Card& rhs) // Copy Constructor
+
+Card::Card(const Card& rhs)//copy constructor
 {
     cardType_ = rhs.cardType_;
     instruction_ = rhs.instruction_;
     drawn_ = rhs.drawn_;
-
-    if (rhs.bitmap_ != nullptr) // just keep bitmap new and for loop
+    if (rhs.bitmap_ != nullptr) 
     {
-        bitmap_ = new int[80];
-        for (int i=0; i< 80; i++)
-        {
-            bitmap_[i] = rhs.bitmap_[i];
-        }
+        bitmap_ = new int[80]; // Assuming bitmapSize is the size of the array
+        std::copy(rhs.bitmap_, rhs.bitmap_ + 80, this -> bitmap_);
     }
-    else
-    {
+    else 
         bitmap_ = nullptr;
-    }
 }
 
 Card& Card::operator=(const Card& rhs) // Copy Assignment
