@@ -4,20 +4,24 @@ Card::~Card()//destructor
 {
     delete[] bitmap_;
 }
-
-
-Card::Card(const Card& rhs)//copy constructor
+Card::Card(const Card& rhs) // Copy Constructor
 {
     cardType_ = rhs.cardType_;
     instruction_ = rhs.instruction_;
     drawn_ = rhs.drawn_;
-    if (rhs.bitmap_ != nullptr) 
+
+    if (rhs.bitmap_ != nullptr) // just keep bitmap new and for loop
     {
-        bitmap_ = new int[80]; // Assuming bitmapSize is the size of the array
-        std::copy(rhs.bitmap_, rhs.bitmap_ + 80, this -> bitmap_);
+        bitmap_ = new int[80];
+        for (int i=0; i< 80; i++)
+        {
+            bitmap_[i] = rhs.bitmap_[i];
+        }
     }
-    else 
+    else
+    {
         bitmap_ = nullptr;
+    }
 }
 
 Card& Card::operator=(const Card& rhs) // Copy Assignment
@@ -71,6 +75,14 @@ Card& Card::operator=(Card&& rhs)
         rhs.drawn_ = 0;
     }
     return *this;
+}
+
+Card::Card()
+{
+    CardType cardType_;
+    std::string instruction_ = "";
+    int* bitmap_ = 0;
+    bool drawn_ = false;
 }
 
 std::string Card::getType() const 
