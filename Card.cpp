@@ -1,73 +1,82 @@
 #include "Card.hpp"
 
-Card::~Card()//destructor
+Card::~Card() // Destructor
 {
-    delete[] bitmap_;
+    delete[] bitmap_; // Deallocate bitmap_ because bitmap is a pointer.
+    bitmap_ = nullptr; // Point bitmap_ to nullptr since it's not needed anymore upon destruction.
 }
 
-Card::Card(const Card& rhs)//copy constructor
+Card::Card(const Card& rhs) // Copy Constructor
 {
     cardType_ = rhs.cardType_;
     instruction_ = rhs.instruction_;
     drawn_ = rhs.drawn_;
-    if (rhs.bitmap_ != nullptr) 
+
+    if (rhs.bitmap_ != nullptr) // just keep bitmap new and for loop
     {
-        bitmap_ = new int[80]; // Assuming bitmapSize is the size of the array
-        std::copy(rhs.bitmap_, rhs.bitmap_ + 80, this -> bitmap_);
+        bitmap_ = new int[80];
+        for (int i=0; i< 80; i++)
+        {
+            bitmap_[i] = rhs.bitmap_[i];
+        }
     }
-    else 
+    else
+    {
         bitmap_ = nullptr;
+    }
 }
 
-Card& Card::operator=(const Card& rhs)//copy assignment operator
-{   
-    if (this == &rhs) {
-        return *this; // Self-assignment, no need to do anything
+Card& Card::operator=(const Card& rhs) // Copy Assignment
+{
+    if (this != &rhs) // Checking for self assignment. So it checks if card1 != card1.
+    {
+        cardType_ = rhs.cardType_; // you can do this->
+        instruction_ = rhs.instruction_;
+        drawn_ = rhs.drawn_;
+
+        delete[] bitmap_;
+
+        if (rhs.bitmap_ != nullptr) // just keep bitmap new and for loop
+        {
+            bitmap_ = new int[80];
+            for (int i=0; i<80; i++)
+            {
+                bitmap_[i] = rhs.bitmap_[i];
+            }
+        }
+        else
+        {
+            bitmap_= nullptr;
+        }
     }
-    // Release any previously allocated memory for bitmap_
-    delete[] this -> bitmap_;
-    this -> cardType_ = rhs.cardType_;
-    this -> instruction_ = rhs.instruction_;
-    this -> drawn_ = rhs.drawn_;
-    if (rhs.bitmap_ != nullptr) {
-        this -> bitmap_ = new int[80]; // Assuming bitmapSize is the size of the array
-        std::copy(rhs.bitmap_, rhs.bitmap_ + 80, this -> bitmap_);
-    } else {
-        this -> bitmap_ = nullptr;
-    }
-    // Initialize other members as necessary
     return *this;
 }
 
-Card::Card(Card&& rhs)//movement constructor
-    :cardType_(rhs.cardType_), instruction_(std::move(rhs.instruction_)), bitmap_(std::move(rhs.bitmap_)), drawn_(rhs.drawn_)
-    {
-        rhs.bitmap_ = nullptr;
-    }
+Card::Card(Card&& rhs)
+{
+    instruction_ = std::move(rhs.instruction_); // Using move to change lvalue rvalue. cardType
+    drawn_ = std::move(rhs.drawn_);
+    cardType_ = std::move(rhs.cardType_);
+    bitmap_ = std::move(rhs.bitmap_);
+
+    rhs.bitmap_ = nullptr; // set the rhs.bitmap to nothing. A clean slate.
+    rhs.drawn_ = 0; // 0 = false and 1 = true. I might play around with !true to represent false because why not.
+}
 
 Card& Card::operator=(Card&& rhs)
 {
-    if(this == &rhs)
-        return *this;//if its already the same, nothing needs to be moved or changed
+    if(this != &rhs) // self assignment check
+    {
+        delete[] bitmap_; // Deallocate previous allocated memory for this object.
+        instruction_ = std::move(rhs.instruction_); // cardType_
+        cardType_ = std::move(rhs.cardType_);
+        drawn_ = std::move(rhs.drawn_);
+        bitmap_ = std::move(rhs.bitmap_);
 
-    delete[] bitmap_;//deletes current bitmap
-
-    cardType_ = std::move(rhs.cardType_);
-    instruction_ = std::move(rhs.instruction_);
-    bitmap_ = std::move(rhs.bitmap_);  
-    drawn_ = std::move(rhs.drawn_);
-
-    rhs.bitmap_ = nullptr; //deallocates the source object
-
+        rhs.bitmap_ = nullptr;
+        rhs.drawn_ = 0;
+    }
     return *this;
-}
-
-Card::Card()
-{
-    CardType cardType_;
-    std::string instruction_ = "";
-    int* bitmap_ = 0;
-    bool drawn_ = false;
 }
 
 std::string Card::getType() const 
