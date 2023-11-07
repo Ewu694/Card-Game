@@ -57,5 +57,16 @@ void Hand::Reverse()
 
 int Hand::PlayCard()
 {
-
+    cards_.pop_front();
+    if(isEmpty())
+        throw std::invalid_argument("No cards left in hand"); 
+    else if(cards_[0].isPlayable() == false)
+    {
+        throw std::invalid_argument("Not playable");
+        cards_.pop_front();
+    }
+    else
+    {
+        return std::stoi(cards_[0].getInstruction());
+    }
 }

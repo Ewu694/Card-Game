@@ -66,7 +66,7 @@ class Hand {
          * @post: Reverse the hand
          */
         void Reverse();
-
+    
         /**
          * @post: Play the card at the front of the hand, removing it from the hand
          * Throws an exception if the hand is empty or the card is not playable
