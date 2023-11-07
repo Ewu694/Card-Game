@@ -68,7 +68,7 @@ void Player::drawPointCard()
 
 void Player::playPointCard()
 {
-    
+    hand_.PlayCard();
 }
 
 void Player::setOpponent(Player* opponent)
