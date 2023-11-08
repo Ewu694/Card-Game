@@ -14,15 +14,24 @@ Hand::~Hand()
 
 Hand::Hand(const Hand& other)
 {
-    for (auto card : other.cards_){
-        this -> cards_.push_back(card);
+    for (auto itr = other.cards_.cbegin(); itr != other.cards_.cend(); ++itr) 
+    {
+        PointCard copied_card = *itr;
+        cards_.insert(cards_.end(), copied_card);
     }
 }
 
 Hand& Hand::operator=(const Hand& other)
 {
-    for (auto card : other.cards_){
-        this -> cards_.push_back(card);
+     if (this != &other) 
+     {
+        this->cards_.clear();
+
+        for (auto itr = other.cards_.cbegin(); itr != other.cards_.cend(); ++itr) 
+        {
+            PointCard copied_card = *itr;
+            this->cards_.insert(cards_.end(), copied_card);
+        }
     }
     return *this;
 }
@@ -30,12 +39,10 @@ Hand& Hand::operator=(const Hand& other)
 Hand::Hand(Hand&& other)
 {
     cards_ = std::move(other.cards_);
-}
+    }
 
 Hand& Hand::operator=(Hand&& other){
-    if (this != &other){
-        cards_ = std::move(other.cards_);
-    }
+    std::swap(cards_, other.cards_);
     return *this;
 }
 
@@ -55,29 +62,43 @@ bool Hand::isEmpty() const
     return (cards_.size() == 0);
 }
 
-void Hand::Reverse()
-{
-    std::stack <PointCard> reverse;
-    while(!cards_.empty()){
-        reverse.push(cards_.back());
-        cards_.pop_back();
-    }
-    while(!reverse.empty()){
-        cards_.push_front(reverse.top());
-        reverse.pop();
+void Hand::Reverse() {
+    for (size_t i = 0; i < cards_.size() / 2; ++i) {
+        std::swap(cards_[i], cards_[cards_.size() - i - 1]);
     }
 }
 
-int Hand::PlayCard()
-{
-    if(isEmpty())
-        throw std::invalid_argument("No cards in hand"); 
-    else if(cards_[0].isPlayable() == false)
+/**
+* @post: Play the card at the front of the hand, removing it from the hand
+* Throws an exception if the hand is empty or the card is not playable
+* If the card is not playable, the card is removed from the hand
+* @return the points earned from playing the card
+*/
+int Hand::PlayCard() {
+
+    PointCard& card = cards_.front();
+
+    try 
     {
-        throw std::invalid_argument("Card is not playable");
+        if (isEmpty() == true) 
+            throw std::invalid_argument("\nInteger value is required.");
+        else
+        {
+            if (card.isPlayable() == false)
+                throw std::invalid_argument("\nCard is not playable.");
+            else 
+            {
+                int num = std::stoi( card.getInstruction() );
+                cards_.pop_front();
+                return num;
+            }
+        } 
+    } 
+    catch (std::invalid_argument& e) 
+    {
+        std::cerr << "\nError: " << e.what() << " Either the card is not playable or the hand is empty ";
         cards_.pop_front();
+        delete card.getImageData();
+        return 0;
     }
-    else
-        cards_.pop_front();
-        return std::stoi(cards_[0].getInstruction());
 }
