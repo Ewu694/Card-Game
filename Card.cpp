@@ -2,7 +2,8 @@
 
 Card::~Card()
 {
-	delete[] bitmap_;
+    if(bitmap_ != nullptr)
+        delete[] bitmap_;
 	bitmap_= nullptr;
 }
 
