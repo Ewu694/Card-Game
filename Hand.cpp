@@ -1,6 +1,4 @@
 #include "Hand.hpp"
-
-#include "Hand.hpp"
 #include <algorithm>
 #include <stack>
 

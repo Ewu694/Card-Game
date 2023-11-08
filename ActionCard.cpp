@@ -37,7 +37,7 @@ void ActionCard::Print() const
     {
         for(int i = 0; i < 80; ++i)
         {
-        std::cout << getImageData()[i] << " " << std::endl;
+            std::cout << getImageData()[i] << " " << std::endl;
         }
     }
     else
