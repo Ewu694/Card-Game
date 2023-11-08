@@ -43,7 +43,8 @@ const std::deque<PointCard>& Hand::getCards() const
 
 void Hand::addCard(PointCard&& card)
 {
-    cards_.emplace_back(card);
+    cards_.push_back(std::move(card));
+    cards_.back().setDrawn(true);
 }
 
 bool Hand::isEmpty() const
