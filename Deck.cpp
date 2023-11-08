@@ -2,15 +2,10 @@
 
 
 template <typename CardType>
-Deck<CardType>::Deck() : cards_()
-{
-    this -> cards_.clear();
-}
+Deck<CardType>::Deck() : cards_(){}
 
 template <typename CardType>
-Deck<CardType>::~Deck()
-{
-}
+Deck<CardType>::~Deck(){}
 
 template <typename CardType>
 void Deck<CardType>::AddCard(const CardType& card)
@@ -21,7 +16,7 @@ void Deck<CardType>::AddCard(const CardType& card)
 /**
  * @post: Draw a card from the deck
  * @pre: the deck is not empty
- * @return the right hand value of type CardType 
+ * @return the right-hand value of type CardType 
  */
 template <typename CardType>
 CardType&& Deck<CardType>::Draw()
