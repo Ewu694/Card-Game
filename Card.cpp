@@ -2,7 +2,7 @@
 
 Card::~Card()
 {
-	delete bitmap_;
+	delete[] bitmap_;
 	bitmap_= nullptr;
 }
 
@@ -11,10 +11,16 @@ Card::Card(const Card& rhs)
 	instruction_= rhs.instruction_;
 	drawn_ = rhs.drawn_;
 	cardType_ = rhs.cardType_;
-	bitmap_ = new int[80];//creates a bitmap of size 80 as per project specifications
-	for(int i = 0; i < 80; ++i){
-		bitmap_[i] = rhs.bitmap_[i];
-	}
+    if(rhs.bitmap_ == nullptr)
+    {
+        bitmap_ = nullptr;
+    }
+    else{
+	    bitmap_ = new int[80];//creates a bitmap of size 80 as per project specifications
+	    for(int i = 0; i < 80; ++i){
+		    bitmap_[i] = rhs.bitmap_[i];
+	    }
+    }
 }
 
 Card& Card::operator=(const Card& rhs)
@@ -23,7 +29,7 @@ Card& Card::operator=(const Card& rhs)
 		instruction_ = rhs.instruction_;
 		drawn_ = rhs.drawn_;
 		cardType_ = rhs.cardType_;
-		delete bitmap_;//deallocates bitmap to make sure it is empty for when we set add the rhs values into it
+		delete[] bitmap_;//deallocates bitmap to make sure it is empty for when we set add the rhs values into it
 		bitmap_ = new int[80];//only goes up to 80 per project specifications
 		for(int i = 0; i < 80; ++i){
 			bitmap_[i] = rhs.bitmap_[i];
@@ -47,7 +53,7 @@ Card& Card::operator=(Card&& rhs)
 		cardType_ = rhs.cardType_;
 		drawn_= rhs.drawn_;
 		instruction_ = std::move(rhs.instruction_);
-		delete bitmap_;//deallocates bitmap to make sure it is empty for when we set add the rhs values into it
+		delete[] bitmap_;//deallocates bitmap to make sure it is empty for when we set add the rhs values into it
 		bitmap_= nullptr;
 		bitmap_ = rhs.bitmap_;
 		rhs.bitmap_ = nullptr;
