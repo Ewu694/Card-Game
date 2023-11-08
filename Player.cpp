@@ -46,14 +46,14 @@ void Player::play(ActionCard&& card)
         int num = std::stoi(match[1].str());
         for(int i = 0; i < num; ++i)
         {
-            hand_.addCard(pointdeck_ -> Draw());    
+            drawPointCard();   
         }
     }
     else if(instruction == "SWAP HAND WITH OPPONENT")
     {
-        Hand temp = getHand();
-        setHand(opponent_ -> getHand());
-        opponent_ -> setHand(temp);
+        Hand temp = std::move(getHand());
+        setHand(std::move(opponent_ -> getHand()));
+        opponent_ -> setHand(std::move(playerHand));
     }
     else if(instruction == "REVERSE HAND")
     {
@@ -63,12 +63,13 @@ void Player::play(ActionCard&& card)
 
 void Player::drawPointCard()
 {
-    pointdeck_ -> Draw();
+    hand_.addCard(std::move(pointdeck_ -> Draw()));
 }
 
 void Player::playPointCard()
 {
-    hand_.PlayCard();
+    if(!hand_.isEmpty())
+        score_ += hand_.PlayCard();
 }
 
 void Player::setOpponent(Player* opponent)

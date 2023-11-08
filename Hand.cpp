@@ -1,29 +1,34 @@
 #include "Hand.hpp"
+#include <algorithm>
+#include <stack>
 
-Hand::Hand() : cards_() {}
-
-Hand::~Hand() {}
-
-Hand::Hand(const Hand& other) 
-{
-    for (const PointCard& card : other.cards_) {
-        cards_.emplace_back(card); //constructs the objects into the vector, can use insert to copy into constructor instead
+Hand::Hand(){
+}
+Hand::~Hand(){
+    while(!this->isEmpty()){
+        cards_.pop_back();
     }
 }
-
-// Copy Assignment Operator
-Hand& Hand::operator=(const Hand& other) {
-    if (this != &other) {
-        cards_.clear();// Clear the current contents in the vector
-        for (const PointCard& card : other.cards_) {
-            cards_.emplace_back(card); 
-        }
+Hand::Hand(const Hand& other){
+    for (auto card : other.cards_){
+        this->cards_.push_back(card);
+    }
+}
+Hand& Hand::operator=(const Hand& other){
+    for (auto card : other.cards_){
+        this->cards_.push_back(card);
     }
     return *this;
 }
-
-Hand::Hand(Hand&& other) : cards_(std::move(other.cards_)) {}
-
+Hand::Hand(Hand&& other){
+    this->cards_ = std::move(other.cards_);
+}
+Hand& Hand::operator=(Hand&& other){
+    if (this != &other){
+        cards_ = std::move(other.cards_);
+    }
+    return *this;
+}
 Hand& Hand::operator=(Hand&& other) {
     if (this != &other) {
         cards_ = std::move(other.cards_);
@@ -38,7 +43,8 @@ const std::deque<PointCard>& Hand::getCards() const
 
 void Hand::addCard(PointCard&& card)
 {
-    cards_.emplace_back(card);
+    cards_.push_back(std::move(card));
+    cards_.back().setDrawn(true);
 }
 
 bool Hand::isEmpty() const
@@ -50,9 +56,16 @@ bool Hand::isEmpty() const
     return false;
 }
 
-void Hand::Reverse()
-{
-    std::reverse(cards_.begin(), cards_.end());
+void Hand::Reverse(){
+    std::stack <PointCard> reverse;
+    while(!cards_.empty()){
+        reverse.push(cards_.back());
+        cards_.pop_back();
+    }
+    while(!reverse.empty()){
+        cards_.push_front(reverse.top());
+        reverse.pop();
+    }
 }
 
 int Hand::PlayCard()
