@@ -19,7 +19,7 @@ Card::Card(const Card& rhs)
 
 Card& Card::operator=(const Card& rhs)
 {
-	if(this != &rhs){
+	if(this != &rhs){//if this lhs isn't equal to rhs then:
 		instruction_ = rhs.instruction_;
 		drawn_ = rhs.drawn_;
 		cardType_ = rhs.cardType_;
@@ -43,7 +43,7 @@ Card::Card(Card&& rhs)
 
 Card& Card::operator=(Card&& rhs)
 {
-	if(this != &rhs){
+	if(this != &rhs){//if lhs not equal to rhs then: 
 		cardType_ = rhs.cardType_;
 		drawn_= rhs.drawn_;
 		instruction_ = std::move(rhs.instruction_);

@@ -25,7 +25,7 @@ class Deck
         Deck();
 
         /**
-             * @post: Destroy the Deck object 
+         * @post: Destroy the Deck object 
          */
         ~Deck();
 
