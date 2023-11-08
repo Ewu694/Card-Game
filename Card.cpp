@@ -80,7 +80,7 @@ Card& Card::operator=(Card&& rhs)
 }
 Card::Card()
 {
-    CardType cardType_ = POINT_CARD;
+    cardType_ = POINT_CARD;
     instruction_ = "";
     bitmap_ = nullptr;
     drawn_ = false;
