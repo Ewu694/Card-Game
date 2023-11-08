@@ -1,8 +1,16 @@
 #include "Player.hpp"
 
-Player::Player() : hand_(), score_(0), opponent_(nullptr), actiondeck_(nullptr), pointdeck_(nullptr) {}
+Player::Player(): score_(0), opponent_(nullptr){
 
-Player::~Player() {}
+    actiondeck_ = new Deck<ActionCard>();
+    pointdeck_ = new Deck<PointCard>();
+}
+
+Player::~Player(){
+
+    delete actiondeck_;
+    delete pointdeck_;
+}
 
 const Hand& Player::getHand() const
 {
@@ -26,12 +34,12 @@ void Player::setScore(const int& score)
 
 void Player::play(ActionCard&& card)
 {
-    if(!card.isPlayable())
+    if(!card.isPlayable())//edge case
         return;
 
     std::string instruction = card.getInstruction();
-    std::regex playInstruction("PLAY (\\d+) CARD(\\(S\\))?");
-    std::regex drawInstruction("DRAW (\\d+) CARD(\\(S\\))?");
+    std::regex playInstruction("PLAY (\\d+) CARD(\\(S\\))?");//regex for play instructions
+    std::regex drawInstruction("DRAW (\\d+) CARD(\\(S\\))?");//regex for draw instructions
     std::smatch match;
     if(std::regex_match(instruction, match, playInstruction))
     {
@@ -51,9 +59,9 @@ void Player::play(ActionCard&& card)
     }
     else if(instruction == "SWAP HAND WITH OPPONENT")
     {
-        Hand temp = std::move(getHand());
-        setHand(std::move(opponent_ -> getHand()));
-        opponent_ -> setHand(std::move(playerHand));
+        Hand temp = std::move(getHand());//temp is the player hand
+        setHand(std::move(opponent_ -> getHand()));//set player's hand to opponent hand with move semantics
+        opponent_ -> setHand(std::move(temp));//set opponent's hand to player hand with move semantics
     }
     else if(instruction == "REVERSE HAND")
     {

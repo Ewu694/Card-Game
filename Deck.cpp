@@ -1,56 +1,51 @@
 #include "Deck.hpp"
 
 
-template <typename CardType>
-Deck<CardType>::Deck() : cards_(){}
+#include "Deck.hpp"
+
+template <typename CardType> 
+Deck<CardType>::Deck(){}
 
 template <typename CardType>
 Deck<CardType>::~Deck(){}
 
-template <typename CardType>
+template <typename CardType> 
 void Deck<CardType>::AddCard(const CardType& card)
-{   
+{
     cards_.push_back(card);
 }
 
-/**
- * @post: Draw a card from the deck
- * @pre: the deck is not empty
- * @return the right-hand value of type CardType 
- */
 template <typename CardType>
 CardType&& Deck<CardType>::Draw()
 {
-    if(IsEmpty() == false)
-    {
-        cards_.back().setDrawn(true);
-        CardType && card = std::move(cards_.back());
-        cards_.pop_back();
-        return std::move(card);
-    }
-    throw std::runtime_error("Deck is empty");
+	if(cards_.empty()){
+		throw std::runtime_error("Deck is Empty, unable to draw");
+	}
+	CardType&& drawnCard = std::move(cards_.back());
+	cards_.pop_back();
+	return std::move(drawnCard);
 }
 
-template <typename CardType>
+template <typename CardType> 
 bool Deck<CardType>::IsEmpty() const
 {
     return cards_.empty();
 }
 
-template <typename CardType>
+template <typename CardType> 
 void Deck<CardType>::Shuffle()
 {
-    std::mt19937 rng(2028358904);
-    std::shuffle(cards_.begin(), cards_.end(), rng);
+    std::mt19937 randum(2028358904);
+    std::shuffle(cards_.begin(), cards_.end(), randum);
 }
 
-template<typename CardType>
+template <typename CardType> 
 int Deck<CardType>::getSize() const
 {
     return cards_.size();
 }
 
-template<typename CardType>
+template <typename CardType> //return vector of cards in deck
 std::vector<CardType> Deck<CardType>::getDeck() const
 {
     return cards_;
