@@ -1,15 +1,17 @@
 #include "Player.hpp"
 
-Player::Player(): score_(0), opponent_(nullptr){
-
-    actiondeck_ = new Deck<ActionCard>();
-    pointdeck_ = new Deck<PointCard>();
-}
+Player::Player(): score_(0), opponent_(nullptr), actiondeck_(nullptr), pointdeck_(nullptr){}
 
 Player::~Player(){
-
-    delete actiondeck_;
-    delete pointdeck_;
+    if(actiondeck_ == opponent_ -> getActionDeck())
+        actiondeck_ = nullptr;
+    else
+        delete actiondeck_;
+    
+    if(pointdeck_ == opponent_ -> getPointDeck())
+        pointdeck_ = nullptr;
+    else
+        delete pointdeck_;
 }
 
 const Hand& Player::getHand() const
@@ -34,15 +36,12 @@ void Player::setScore(const int& score)
 
 void Player::play(ActionCard&& card)
 {
-    if(!card.isPlayable())//edge case
-        return;
-
     std::string instruction = card.getInstruction();
     std::regex playInstruction("PLAY (\\d+) CARD(\\(S\\))?");//regex for play instructions
     std::regex drawInstruction("DRAW (\\d+) CARD(\\(S\\))?");//regex for draw instructions
     std::smatch match;
     if(std::regex_match(instruction, match, playInstruction))
-    {
+    {   
         int num = std::stoi(match[1].str());
         for(int i = 0; i < num; ++i)
         {

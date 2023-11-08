@@ -47,6 +47,7 @@ const std::deque<PointCard>& Hand::getCards() const
 
 void Hand::addCard(PointCard&& card)
 {
+   card.setDrawn(true);
    cards_.push_back(std::move(card));
 }
 
@@ -70,7 +71,6 @@ void Hand::Reverse()
 
 int Hand::PlayCard()
 {
-    cards_.pop_front();
     if(isEmpty())
         throw std::invalid_argument("No cards in hand"); 
     else if(cards_[0].isPlayable() == false)
