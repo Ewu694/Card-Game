@@ -63,12 +63,13 @@ void Player::play(ActionCard&& card)
 
 void Player::drawPointCard()
 {
-    pointdeck_ -> Draw();
+    hand_.addCard(std::move(pointdeck_ -> Draw()));
 }
 
 void Player::playPointCard()
 {
-    hand_.PlayCard();
+    if(!hand.isEmpty())
+        score += hand_.PlayCard();
 }
 
 void Player::setOpponent(Player* opponent)
