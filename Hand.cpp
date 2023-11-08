@@ -2,13 +2,14 @@
 #include <algorithm>
 #include <stack>
 
-Hand::Hand(){}
+Hand::Hand()
+{
+    std::deque<PointCard> cards_();
+}
 
 Hand::~Hand()
 {
-    while(!this->isEmpty()){
-        cards_.pop_back();
-    }
+    cards_.clear();
 }
 
 Hand::Hand(const Hand& other)
@@ -28,7 +29,7 @@ Hand& Hand::operator=(const Hand& other)
 
 Hand::Hand(Hand&& other)
 {
-    this -> cards_ = std::move(other.cards_);
+    cards_ = std::move(other.cards_);
 }
 
 Hand& Hand::operator=(Hand&& other){

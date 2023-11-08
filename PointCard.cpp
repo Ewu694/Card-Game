@@ -12,7 +12,10 @@ bool PointCard::isPlayable()
 {
     if(getDrawn() && std::stoi(getInstruction()) >= 0)
         return true;  
-    return false;
+    if(getInstruction().empty())
+        return false;
+    if(getDrawn() == true)
+        return false;
 }
 
 void PointCard::Print() const

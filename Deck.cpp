@@ -18,7 +18,6 @@ CardType&& Deck<CardType>::Draw()
 	if(cards_.empty()){
 		throw std::runtime_error("Deck is Empty, unable to draw");
 	}
-    cards_setDrawn(true);
 	CardType&& drawnCard = std::move(cards_.back());
     drawnCard.setDrawn(true);
 	cards_.pop_back();
