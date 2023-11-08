@@ -1,29 +1,32 @@
 #include "Hand.hpp"
 
-Hand::Hand() : cards_() {}
-
-Hand::~Hand() {}
-
-Hand::Hand(const Hand& other) 
-{
-    for (const PointCard& card : other.cards_) {
-        cards_.emplace_back(card); //constructs the objects into the vector, can use insert to copy into constructor instead
+Hand::Hand(){
+}
+Hand::~Hand(){
+    while(!this->isEmpty()){
+        cards_.pop_back();
     }
 }
-
-// Copy Assignment Operator
-Hand& Hand::operator=(const Hand& other) {
-    if (this != &other) {
-        cards_.clear();// Clear the current contents in the vector
-        for (const PointCard& card : other.cards_) {
-            cards_.emplace_back(card); 
-        }
+Hand::Hand(const Hand& other){
+    for (auto card : other.cards_){
+        this->cards_.push_back(card);
+    }
+}
+Hand& Hand::operator=(const Hand& other){
+    for (auto card : other.cards_){
+        this->cards_.push_back(card);
     }
     return *this;
 }
-
-Hand::Hand(Hand&& other) : cards_(std::move(other.cards_)) {}
-
+Hand::Hand(Hand&& other){
+    this->cards_ = std::move(other.cards_);
+}
+Hand& Hand::operator=(Hand&& other){
+    if (this != &other){
+        cards_ = std::move(other.cards_);
+    }
+    return *this;
+}
 Hand& Hand::operator=(Hand&& other) {
     if (this != &other) {
         cards_ = std::move(other.cards_);
