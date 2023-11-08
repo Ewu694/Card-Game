@@ -23,10 +23,12 @@ CardType&& Deck<CardType>::Draw()
 {
     if(IsEmpty() == false)
     {
+        cards_.back().setDrawn(true);
         CardType && card = std::move(cards_.back());
         cards_.pop_back();
         return std::move(card);
     }
+    throw std::runtime_error("Deck is empty");
 }
 
 template <typename CardType>
