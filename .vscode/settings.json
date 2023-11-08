@@ -68,7 +68,8 @@
         "random": "cpp",
         "charconv": "cpp",
         "__tree": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "stack": "cpp"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }

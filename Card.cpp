@@ -31,18 +31,23 @@ Card& Card::operator=(const Card& rhs)
 		drawn_ = rhs.drawn_;
 		cardType_ = rhs.cardType_;
 		delete[] bitmap_;//deallocates bitmap to make sure it is empty for when we set add the rhs values into it
-		bitmap_ = new int[80];//only goes up to 80 per project specifications
-		for(int i = 0; i < 80; ++i){
-			bitmap_[i] = rhs.bitmap_[i];
-		}
+        if(rhs.bitmap_ == nullptr)
+            bitmap_ = nullptr;
+        else
+        {
+		    bitmap_ = new int[80];//only goes up to 80 per project specifications
+		    for(int i = 0; i < 80; ++i){
+			    bitmap_[i] = rhs.bitmap_[i];
+		    }
+        }
 	}
 	return *this;
 }
 
 Card::Card(Card&& rhs)
 {
-	cardType_ = rhs.cardType_;
-	drawn_= rhs.drawn_;
+	cardType_ = std::move(rhs.cardType_);
+	drawn_= std::move(rhs.drawn_);
 	instruction_ = std::move(rhs.instruction_);
 	bitmap_= rhs.bitmap_;
 	rhs.bitmap_ = nullptr;
@@ -51,8 +56,8 @@ Card::Card(Card&& rhs)
 Card& Card::operator=(Card&& rhs)
 {
 	if(this != &rhs){//if lhs not equal to rhs then: 
-		cardType_ = rhs.cardType_;
-		drawn_= rhs.drawn_;
+		cardType_ = std::move(rhs.cardType_);
+		drawn_= std::move(rhs.drawn_);
 		instruction_ = std::move(rhs.instruction_);
 		delete[] bitmap_;//deallocates bitmap to make sure it is empty for when we set add the rhs values into it
 		bitmap_= nullptr;
