@@ -1,4 +1,6 @@
 #include "Hand.hpp"
+#include <algorithm>
+#include <stack>
 
 Hand::Hand(){
 }
