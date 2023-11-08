@@ -47,8 +47,7 @@ const std::deque<PointCard>& Hand::getCards() const
 
 void Hand::addCard(PointCard&& card)
 {
-    card.setDrawn(true);
-    cards_.push_back(std::move(card));
+   cards_.push_back(std::move(card));
 }
 
 bool Hand::isEmpty() const
@@ -80,7 +79,6 @@ int Hand::PlayCard()
         cards_.pop_front();
     }
     else
-    {
+        cards_.pop_front();
         return std::stoi(cards_[0].getInstruction());
-    }
 }
