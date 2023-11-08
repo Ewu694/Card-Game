@@ -50,9 +50,16 @@ bool Hand::isEmpty() const
     return false;
 }
 
-void Hand::Reverse()
-{
-    std::reverse(cards_.begin(), cards_.end());
+void Hand::Reverse(){
+    std::stack <PointCard> reverse;
+    while(!cards_.empty()){
+        reverse.push(cards_.back());
+        cards_.pop_back();
+    }
+    while(!reverse.empty()){
+        cards_.push_front(reverse.top());
+        reverse.pop();
+    }
 }
 
 int Hand::PlayCard()
