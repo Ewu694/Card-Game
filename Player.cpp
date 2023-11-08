@@ -36,6 +36,7 @@ void Player::setScore(const int& score)
 
 void Player::play(ActionCard&& card)
 {
+    std::cout << "PLAYING ACTION CARD: " << card.getInstruction() << std::endl;
     std::string instruction = card.getInstruction();
     std::regex playInstruction("PLAY (\\d+) CARD(\\(S\\))?");//regex for play instructions
     std::regex drawInstruction("DRAW (\\d+) CARD(\\(S\\))?");//regex for draw instructions
