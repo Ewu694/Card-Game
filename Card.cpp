@@ -80,10 +80,10 @@ Card& Card::operator=(Card&& rhs)
 }
 Card::Card()
 {
-    CardType cardType_;
-    std::string instruction_ = "";
-    int* bitmap_ = 0;
-    bool drawn_ = false;
+    CardType cardType_ = POINT_CARD;
+    instruction_ = "";
+    bitmap_ = nullptr;
+    drawn_ = false;
 }
 
 std::string Card::getType() const 
